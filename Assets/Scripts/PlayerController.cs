@@ -7,11 +7,13 @@ public class PlayerController : MonoBehaviour
     public static PlayerController Instance;
 
     public Animator anim;
+    public Rigidbody rg;
 
     public Vector3 moveDirection;
 
     public float moveSpeed = 10f;   
     public float rotateSpeed = 10;
+    public float jumpVlue = 5f;
     private float moveX;
     private float moveY;
 
@@ -25,12 +27,16 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        
+        rg = GetComponent<Rigidbody>();
     }
 
     void Update()
     {
-        MovePlayer();           
+       
+    }
+    private void FixedUpdate()
+    {
+        MovePlayer();
     }
     private void LateUpdate()
     {
@@ -52,7 +58,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (moveY > 0)
         {            
-            moveSpeed += 0.06f;
+            moveSpeed += 0.1f;
             if(moveSpeed<4)
             {
                 SetWalk();
@@ -94,5 +100,11 @@ public class PlayerController : MonoBehaviour
     public void SetRunBackward()
     {
         anim.SetFloat("Speed", -0.2f);
+    }
+    public void SetJumping()
+    {
+        Vector3 vt3Jump = new Vector3(0, 0, jumpVlue);
+        rg.velocity = vt3Jump;
+        anim.SetInteger("Jumping",(int)rg.velocity.y);
     }
 }
