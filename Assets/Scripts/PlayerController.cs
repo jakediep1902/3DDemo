@@ -103,8 +103,8 @@ public class PlayerController : MonoBehaviour
     }
     public void SetJumping()
     {
-        Vector3 vt3Jump = new Vector3(0, 0, jumpVlue);
+        Vector3 vt3Jump = new Vector3(0, jumpVlue, 0);
         rg.velocity = vt3Jump;
-        anim.SetInteger("Jumping",(int)rg.velocity.y);
+        anim.SetTrigger("Jumping");
     }
 }
